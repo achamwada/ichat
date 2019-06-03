@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chatWindow: {
       width: '75%',
-      height: '300px'
+      maxHeight: '300px', 
+      overflow: 'auto'
     },
     chip: {
       margin: '5px'
@@ -60,7 +61,8 @@ const useStyles = makeStyles((theme: Theme) =>
 function Dashboard() {
   const classes = useStyles({});
   const [message, setMessage] = useState("");
-  const [allData] = React.useContext(ContextStore);
+  const [allData, sendChatAction]= React.useContext(ContextStore);
+
   const channels = Object.keys(allData);
   let [currentChanel, setChanel] = useState("Golang");
 
@@ -129,7 +131,16 @@ function Dashboard() {
             value={message}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
           />
-          <Button variant="contained" color="primary" className={classes.sendBox}>
+          <Button 
+          variant="contained" 
+          color="primary" 
+          className={classes.sendBox}
+          onClick = { () => {
+              sendChatAction({channel: currentChanel, msg:message ,from:"alex" })
+            setMessage("");
+          }
+           }
+          >
             Send message
       </Button>
 

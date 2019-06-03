@@ -9,7 +9,6 @@ const App: React.FC = () => {
       <ContextStore.Consumer>
         {(context)=>  <Dashboard /> }
       </ContextStore.Consumer>
-
     </Store>
     // <React.Fragment>
     //   <Dashboard />
