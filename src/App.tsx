@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
-// import Store, { ContextStore } from './store/store';
+import Store, { ContextStore } from './store/store';
 
 const App: React.FC = () => {
   return (
-    // <Store>
-    //   <ContextStore.Consumer>
-    //     {(context)=> <Dashboard store={context} /> }
-    //   </ContextStore.Consumer>
+    <Store>
+      <ContextStore.Consumer>
+        {(context)=>  <Dashboard /> }
+      </ContextStore.Consumer>
 
-    // </Store>
-    <React.Fragment>
-      <Dashboard />
-    </React.Fragment>
+    </Store>
+    // <React.Fragment>
+    //   <Dashboard />
+    // </React.Fragment>
 
   );
 }

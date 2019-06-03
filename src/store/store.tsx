@@ -18,8 +18,10 @@ export const initState: any = {
     ],
     PHP: [
         { from: "alex", msg: "Hi there PHP" }, { from: "Martha", msg: "Very interesting" }, { from: "alex", msg: "Done this for long now" }
+    ],
+    C: [
+        { }
     ]
-
 }
 
 
@@ -50,7 +52,7 @@ const Store = (props: any) => {
 
     return (
         <ContextStore.Provider value={reducerHook}>
-            {props.childen}
+            {props.children}
         </ContextStore.Provider>
     )
 

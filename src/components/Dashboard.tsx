@@ -13,6 +13,11 @@ import { default as FaceIcon } from '@material-ui/icons/Face';
 import { default as Button } from '@material-ui/core/Button';
 import { default as TextField } from '@material-ui/core/TextField';
 import { ContextStore } from '../store/store';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,19 +46,38 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     sendBox: {
       width: '15%'
-    }
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
   }),
 );
 
 
 function Dashboard() {
   const classes = useStyles({});
-  const [ message, setMessage ] = useState("");
-  const [ allData ] = React.useContext(ContextStore);
-  //console.log({allData})
+  const [message, setMessage] = useState("");
+  const [allData] = React.useContext(ContextStore);
+  const channels = Object.keys(allData);
+  let [currentChanel, setChanel] = useState("Golang");
+
 
   return (
     <React.Fragment>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            News
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
       <Paper className={classes.root}>
         <Typography variant="h4" component="h4">
           Chat App
@@ -66,10 +90,10 @@ function Dashboard() {
             <List component="nav">
 
               {
-                ["Javascript", "Golang", "PHP"].map((topic, topicIndex) =>
+                channels.map((topic, topicIndex) =>
 
 
-                  <ListItem button key={topicIndex}>
+                  <ListItem button key={topicIndex} onClick={() => setChanel(topic)}>
                     <ListItemText primary={topic} />
                   </ListItem>
 
@@ -81,26 +105,18 @@ function Dashboard() {
           </div>
           <div className={classes.chatWindow}>
             {
-              [{ from: "alex", msg: "Hi there", channel: "React" }, { from: "Martha", msg: "I'm fine, how are you?", channel: "Golang" }, { from: "alex", msg: "doing Greate", channel: "PHP" }].map((chat, chatIndex) =>
+              allData[currentChanel].map((chat: any, chatIndex: number) =>
                 <React.Fragment key={chatIndex}>
-
-
                   <ListItem button>
-                    <Chip
-                      avatar={
-                        <Avatar>
-                          <FaceIcon />
-                        </Avatar>
-                      }
-                      label={chat.from}
-                      className={classes.chip}
-                    />
-                    <ListItemText primary={chat.msg} />
+                    {Object.entries(chat).length === 0 && chat.constructor === Object ? <div>No chats</div> : <React.Fragment>
+                      <Chip
+                        avatar={<Avatar> <FaceIcon /> </Avatar>}
+                        label={chat.from} className={classes.chip} />
+                      <ListItemText
+                        primary={chat.msg} />
+                    </React.Fragment>}
                   </ListItem>
-
                 </React.Fragment>
-
-
               )
             }
 
@@ -108,19 +124,14 @@ function Dashboard() {
 
         </div>
         <div className={classes.flex}>
-
-
           <TextField className={classes.chatBox}
             label="Message"
             value={message}
-            onChange = { (e: React.ChangeEvent<HTMLInputElement>)=> setMessage(e.target.value) }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
           />
           <Button variant="contained" color="primary" className={classes.sendBox}>
             Send message
       </Button>
-
-
-
 
         </div>
 
