@@ -11,7 +11,7 @@ interface chatAction{
 }
 
 export const initState: any = {
-    Javascript: [
+    ReactJS: [
         { from: "alex", msg: "Hi there" }, { from: "Martha", msg: "I'm fine, how are you?" }, { from: "alex", msg: "doing Greate" }
     ],
     Golang: [

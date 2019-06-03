@@ -13,10 +13,8 @@ import { default as FaceIcon } from '@material-ui/icons/Face';
 import { default as Button } from '@material-ui/core/Button';
 import { default as TextField } from '@material-ui/core/TextField';
 import { ContextStore } from '../store/store';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,7 +52,12 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
-  }),
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    }
+  })
 );
 
 
@@ -69,17 +72,7 @@ function Dashboard() {
 
   return (
     <React.Fragment>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+  
       <Paper className={classes.root}>
         <Typography variant="h4" component="h4">
           Chat App
@@ -87,6 +80,15 @@ function Dashboard() {
         <Typography component="p">
           Welcome to our chat app
         </Typography>
+        <Grid container spacing={3}>
+        <Grid item xs={3}>
+        </Grid>
+        <Grid item xs={6}>
+          <div className={classes.paper}><h2> Currently on {currentChanel} Channel</h2></div>
+        </Grid>
+        
+      </Grid>
+        
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
             <List component="nav">
@@ -105,7 +107,9 @@ function Dashboard() {
             </List>
 
           </div>
+          
           <div className={classes.chatWindow}>
+           
             {
               allData[currentChanel].map((chat: any, chatIndex: number) =>
                 <React.Fragment key={chatIndex}>
