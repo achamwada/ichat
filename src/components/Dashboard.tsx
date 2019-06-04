@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     friendsWindow: {
       width: '25%',
       height: '300px',
-      borderRight: '1px dashed lightgrey'
+      borderLeft: '1px dashed lightgrey'
     },
     chatWindow: {
       width: '50%',
