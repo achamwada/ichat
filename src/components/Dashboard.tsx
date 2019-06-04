@@ -14,8 +14,8 @@ import { default as Button } from '@material-ui/core/Button';
 import { default as TextField } from '@material-ui/core/TextField';
 import { ContextStore } from '../store/store';
 
-import Grid from '@material-ui/core/Grid';
-
+import {default as Grid} from '@material-ui/core/Grid';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,8 +31,13 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '300px',
       borderRight: '1px dashed lightgrey'
     },
+    friendsWindow: {
+      width: '25%',
+      height: '300px',
+      borderRight: '1px dashed lightgrey'
+    },
     chatWindow: {
-      width: '75%',
+      width: '50%',
       maxHeight: '300px', 
       overflow: 'auto'
     },
@@ -68,6 +73,7 @@ function Dashboard() {
 
   const channels = Object.keys(allData);
   let [currentChanel, setChanel] = useState("Golang");
+  var messageText = "";
 
 
   return (
@@ -95,10 +101,14 @@ function Dashboard() {
 
               {
                 channels.map((topic, topicIndex) =>
+                
 
-
-                  <ListItem button key={topicIndex} onClick={() => setChanel(topic)}>
-                    <ListItemText primary={topic} />
+                  <ListItem  selected={topic === currentChanel}
+                  button 
+                  key={topicIndex} onClick={() => setChanel(topic)}>
+                  <div style={{display:'none'}}>{messageText = (allData[topic].length === 1 ) ? " message" :   " messages"}</div>
+                  
+                    <ListItemText primary={topic} secondary={allData[topic].length + messageText} />
                   </ListItem>
 
 
@@ -125,6 +135,20 @@ function Dashboard() {
                 </React.Fragment>
               )
             }
+
+          </div>
+
+          <div className={classes.friendsWindow}>
+            <List component="nav">
+            <ListSubheader>You have no friends yet</ListSubheader>
+
+                  <ListItem >
+                  
+                    <ListItemText  secondary="Coming soon!" />
+                  </ListItem>
+
+
+            </List>
 
           </div>
 
