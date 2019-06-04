@@ -24,9 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: "300px",
       overflow: "auto"
     },
-    sendBox: {
-      marginTop: "2em",
-      width: "15%"
+    messageArea: {
+      height: "250px",
+      overflow: "auto"
+    },
+    users: {
+      marginRight: "5px"
     },
     chatBox: {
       width: "85%",
@@ -34,6 +37,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     flex: {
       display: "flex"
+    },
+    messageForm: {
+      display: "block",
+      position: "sticky",
+      bottom: "2px"
     }
   })
 );
@@ -66,7 +74,6 @@ const Messages = (props: Props) => {
             <Button
               variant="contained"
               color="primary"
-              className={classes.sendBox}
               onClick={() =>
                 sendChatAction({ channel, from: "Alex", msg: messageFromInput })
               }
@@ -79,45 +86,49 @@ const Messages = (props: Props) => {
     );
   }
   return (
-    <div className={classes.chatWindow}>
-      {chats.map((chat: Message) => (
-        <ListItem button>
-          <React.Fragment>
-            <Chip
-              label={chat.from}
-              avatar={
-                <Avatar>
-                  <FaceIcon />
-                </Avatar>
-              }
-            />
-            <ListItemText primary={chat.msg} />
-          </React.Fragment>
-        </ListItem>
-      ))}
+    <React.Fragment>
+      <div className={classes.chatWindow}>
+        <div className={classes.messageArea}>
+          {chats.map((chat: Message) => (
+            <ListItem button>
+              <React.Fragment>
+                <Chip
+                  className={classes.users}
+                  label={chat.from}
+                  avatar={
+                    <Avatar>
+                      <FaceIcon />
+                    </Avatar>
+                  }
+                />
+                <ListItemText primary={chat.msg} />
+              </React.Fragment>
+            </ListItem>
+          ))}
+        </div>
 
-      <div className={classes.flex}>
-        <TextField
-          className={classes.chatBox}
-          label="Message"
-          value={messageFromInput}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            sendMessage(e.target.value)
-          }
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.sendBox}
-          onClick={() => {
-            sendChatAction({ channel, from: "Alex", msg: messageFromInput });
-            sendMessage("");
-          }}
-        >
-          Send
-        </Button>
+        <div className={classes.messageForm}>
+          <TextField
+            className={classes.chatBox}
+            label="Message"
+            value={messageFromInput}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              sendMessage(e.target.value)
+            }
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              sendChatAction({ channel, from: "Alex", msg: messageFromInput });
+              sendMessage("");
+            }}
+          >
+            Send
+          </Button>
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
