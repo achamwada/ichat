@@ -72,7 +72,7 @@ function Dashboard() {
   const [allData, sendChatAction]= React.useContext(ContextStore);
 
   const channels = Object.keys(allData);
-  let [currentChanel, setChanel] = useState("Golang");
+  let [currentChanel, setChanel] = useState("ReactJS");
   var messageText = "";
 
 
@@ -123,8 +123,8 @@ function Dashboard() {
             {
               allData[currentChanel].map((chat: any, chatIndex: number) =>
                 <React.Fragment key={chatIndex}>
-                  <ListItem button>
-                    {Object.entries(chat).length === 0 && chat.constructor === Object ? <div>No chats</div> : <React.Fragment>
+                  <ListItem button> {/*console.log(allData,chatIndex)*/}
+                    {/*Object.entries(chat).length === 0 && chat.constructor === Object*/ allData[currentChanel].length === 0 ? <div>No chats</div> : <React.Fragment>
                       <Chip
                         avatar={<Avatar> <FaceIcon /> </Avatar>}
                         label={chat.from} className={classes.chip} />

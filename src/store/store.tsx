@@ -21,7 +21,6 @@ export const initState: any = {
         { from: "alex", msg: "Hi there PHP" }, { from: "Martha", msg: "Very interesting" }, { from: "alex", msg: "Done this for long now" }
     ],
     C: [
-        { }
     ]
 }
 
