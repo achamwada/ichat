@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto"
     },
     messageArea: {
-      height: "250px",
+      height: "240px",
       overflow: "auto"
     },
     users: {
