@@ -10,7 +10,8 @@ interface Props {
 }
 const Channels = (props: Props) => {
   const { topic, currentChanel, chatCount, ChangeChanel } = props;
-  let messageText = "";
+  const messageText = chatCount === 1 ? " message" : " messages";
+  const secondary = `${chatCount} ${messageText}`;
   return (
     <div>
       <ListItem
@@ -19,10 +20,10 @@ const Channels = (props: Props) => {
         onClick={() => ChangeChanel(topic)}
       >
         <div style={{ display: "none" }}>
-          {(messageText = chatCount === 1 ? " message" : " messages")}
+          {messageText}
         </div>
 
-        <ListItemText primary={topic} secondary={chatCount + messageText} />
+        <ListItemText primary={topic} secondary={secondary} />
       </ListItem>
     </div>
   );
